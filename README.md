@@ -6,5 +6,5 @@ Pŕactica final de la asignatura Vision por Computador en el curso 2016-17, y cu
 
 **Colaboradores** 
 * Alejandro David Carrillo Padrón
-* Adu
+* Aduanich Rguez Rguez
 * Daniel Fernández Pérez
