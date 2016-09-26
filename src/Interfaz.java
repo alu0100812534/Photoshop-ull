@@ -2,8 +2,9 @@ package perrysoft;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.Optional;
+import java.util.function.Consumer;
+
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
@@ -13,10 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 
 public class Interfaz {
 	
@@ -27,6 +27,8 @@ public class Interfaz {
 	public JDesktopPane DPane = new JDesktopPane();
 	public JPanel p1 = new JPanel ();
 	int perry=0;
+	
+	Consumer<BufferedImage> bufferImageCallback;
 	
 	
 	Interfaz(){
@@ -69,6 +71,57 @@ public class Interfaz {
 		img_.getContentPane().add(new JLabel(new ImageIcon(imagenes)));
 		img_.setVisible(true);
 		DPane.add(img_);
+		
+		img_.addInternalFrameListener(new InternalFrameListener() {
+
+			@Override
+			public void internalFrameOpened(InternalFrameEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void internalFrameClosing(InternalFrameEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void internalFrameClosed(InternalFrameEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void internalFrameIconified(InternalFrameEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void internalFrameDeiconified(InternalFrameEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void internalFrameActivated(InternalFrameEvent e) {
+				// TODO Auto-generated method stub
+				bufferImageCallback.accept(imagenes);
+	   			System.out.println("focus activate please");
+
+				
+			}
+
+			@Override
+			public void internalFrameDeactivated(InternalFrameEvent e) {
+				// TODO Auto-generated method stub
+	   			System.out.println("focus deactivate please");
+
+				
+			}
+			
+		});		
 
 	}
 		

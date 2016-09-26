@@ -2,15 +2,18 @@ package perrysoft;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class Controlador {
 	private Interfaz interfaz;
 	private Modelo modelo;
+	
+	private BufferedImage actualImage = null;
+	
+	//
 
 	Controlador(){
 		interfaz = new Interfaz();
@@ -28,40 +31,32 @@ public class Controlador {
 		    });
 		 
 		 interfaz.save.addActionListener(new ActionListener() {
-		    	@Override
+		    	@SuppressWarnings("static-access")
+				@Override
 		    	public void actionPerformed(ActionEvent e) {
 		    		//interfaz.openFileSaver();
 		    		javax.swing.JFileChooser jF1= new javax.swing.JFileChooser(); 
 		    		String ruta = ""; 
 		    		try{ 
-		    		if(jF1.showSaveDialog(null)==jF1.APPROVE_OPTION){ 
-		    			ruta = jF1.getSelectedFile().getAbsolutePath(); 
-		    		} 
+			    		if(jF1.showSaveDialog(null)==jF1.APPROVE_OPTION){ 
+			    			ruta = jF1.getSelectedFile().getAbsolutePath(); 
+			    		} 
+			    		if (actualImage != null) {
+			    			ImageIO.write(actualImage, "png", new File(ruta));
+			    		}
+			    		else {
+			   			 System.out.println("No hay imagen seleccionada"); // TODO: JOptionPane
+
+			    		}
 		    		}catch (Exception ex){ 
-		    		ex.printStackTrace(); 
-		    		} 
-		    		try {
-		    			//Cambiar ruta a la imagen elegida
-						ImageIO.write(modelo.getImages(), "png", new File(ruta));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						//e1.printStackTrace();
-					}
-		    		
+		    			ex.printStackTrace(); 
+		    		}		    		
 		    	}
 		    });
 		 
-		 //interfaz.DPane.img_.addActionListener(new ActionListener() {
-		   // 	@Override
-		    //	public void actionPerformed(ActionEvent e) {
-		    		
-		    
-		    	//}
-		    //});
-		 
-		 
-		 
-		 
+		 interfaz.bufferImageCallback = (bufferImage) -> {
+			 actualImage = bufferImage;
+		 }; 		 
 		 
 	}
 	
